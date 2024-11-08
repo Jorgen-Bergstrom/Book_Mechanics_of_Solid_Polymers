@@ -10,7 +10,7 @@
 * Page 253, Equation 5.113, the left-hand-side of the equation should be $\mathcal{L}^{-1}(x)$.
 * Page 252, Equation 5.114, the left-hand-side of the equation should be $\mathcal{L}^{-1}(x)$.
 * Page 263, Equation 5.125, the equation should be: $\displaystyle\sigma_{planar} = \mu \left( \lambda^2 - \frac{1}{\lambda^2} \right) \frac{J_m}{J_m - (\lambda^2 + 1/\lambda^2 - 2)}$.
-* Page 263, Equation 5.126, the equation should be: $\sigma_{biax} = \mu \left( \lambda^2 - \frac{1}{\lambda^4} \right) \frac{J_m}{J_m - (2\lambda^2 + 1/\lambda^4 - 3)}$.
+* Page 263, Equation 5.126, the equation should be: $\displaystyle\sigma_{biax} = \mu \left( \lambda^2 - \frac{1}{\lambda^4} \right) \frac{J_m}{J_m - (2\lambda^2 + 1/\lambda^4 - 3)}$.
 
 # Chapter 6
 * On page 310, Section 6.2, last paragraph: "The approach is to perform a though experiment". It should be "thought experiment".
