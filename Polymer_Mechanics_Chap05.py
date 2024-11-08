@@ -5,11 +5,8 @@ import scipy.optimize
 #    Polymer_Mechanics_Chap05.py
 # Author:
 #    Jorgen Bergstrom, Ph.D. (jorgen@polymerfem.com)
-# Comments;
+# Comments:
 #    This file is distributed with my book: "Mechanics of Solid Polymers - Theory and Computational Modeling".
-#
-#    Copyright (C) 2015  Jorgen Bergstrom
-
 
 def uniaxial_stress(model, trueStrainVec, params):
     """Compressible uniaxial loading. Returns true stress."""
@@ -121,7 +118,7 @@ def EC_3D(stretch, param):
     L2 = stretch[1]
     L3 = stretch[2]
     F = array([[L1,0,0], [0,L2,0], [0,0,L3]])
-    J = det(F)
+    J = abs(det(F))
     bstar = J**(-2.0/3.0) * dot(F, F.T)
     lamChain = sqrt(trace(bstar)/3)
     devbstar = bstar - trace(bstar)/3 * eye(3)
@@ -258,3 +255,4 @@ def hyperfoam_3D(stretch, param):
         Stress[1,1] = Stress[1,1] + fac*(lam[1]**alpha[k] - J**(-alpha[k]*beta[k]))
         Stress[2,2] = Stress[2,2] + fac*(lam[2]**alpha[k] - J**(-alpha[k]*beta[k]))
     return Stress
+
