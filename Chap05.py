@@ -1,13 +1,13 @@
 # Author:
 #    Jorgen Bergstrom, Ph.D.
 # Comments:
-#    This file is distributed with my book: "Mechanics of Solid Polymers - Theory and Computational Modeling".
+#    This file is distributed with my book:
+#    "Mechanics of Solid Polymers - Theory and Computational Modeling".
 
 import sys
 import math
 import numpy as np
 import scipy.optimize
-
 
 def uniaxial_stress(model, trueStrainVec, params):
     """Compressible uniaxial loading. Returns true stress."""
@@ -102,7 +102,7 @@ def invLangevin(x):
         if x <= -1+EPS: x = -1 + EPS
         if abs(x) < 0.839:
             return 1.31435 * math.tan(1.59*x) + 0.911249*x
-        return 1.0 / (sign(x) - x)
+        return 1.0 / (np.sign(x) - x)
     # x is an array
     x[x >= 1-EPS] = 1 - EPS
     x[x <= -1+EPS] = -1 + EPS
@@ -121,7 +121,7 @@ def EC_3D(stretch, param):
     L2 = stretch[1]
     L3 = stretch[2]
     F = np.array([[L1,0,0], [0,L2,0], [0,0,L3]])
-    J = np.linalg.det(F)
+    J = abs(np.linalg.det(F))
     bstar = J**(-2.0/3.0) * np.dot(F, F.T)
     lamChain = np.sqrt(np.trace(bstar)/3)
     devbstar = bstar - np.trace(bstar)/3 * np.eye(3)

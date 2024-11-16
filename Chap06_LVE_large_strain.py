@@ -1,25 +1,26 @@
-from pylab import *
-
-# File:
-#    LVE_large_strain.py
 # Author:
-#    Jorgen Bergstrom, Ph.D. (jorgen@polymerfem.com)
-# Comments;
-#    This file is distributed with my book: "Mechanics of Solid Polymers - Theory and Computational Modeling".
+#    Jorgen Bergstrom, Ph.D.
+# Comments:
+#    This file is distributed with my book:
+#    "Mechanics of Solid Polymers - Theory and Computational Modeling".
+
+import math
+import numpy as np
+import matplotlib.pyplot as plt
 
 
 def NH(strain, params):
     """Neo-Hookean model. Incompressible uniaxial loading."""
     mu = params[0]
-    lam = exp(strain)
+    lam = np.exp(strain)
     return mu * (lam*lam - 1/lam)
 
 def LVE_uniax(time, strain, params):
     """Linear viscoelasticity. [mu, g1, tau1, g2, tau2, ...]"""
-    stress = zeros(len(time))
+    stress = np.zeros(len(time))
     g = params[1::2]
     tau = params[2::2]
-    stressV = zeros(len(g))
+    stressV = np.zeros(len(g))
     stressH0 = NH(strain[0], params)
     for i in range(1, len(time)):
         stressH1 = NH(strain[i], params)
@@ -27,19 +28,20 @@ def LVE_uniax(time, strain, params):
         dt = time[i] - time[i-1]
         stress[i] = stressH1
         for j in range(len(g)):
-            stressV[j] = exp(-dt/tau[j]) * stressV[j] + \
-                g[j]*stressH0*(1 - exp(-dt/tau[j])) + \
-                g[j]*dstressH/dt*(dt-tau[j]+tau[j]*exp(-dt/tau[j]))
+            stressV[j] = math.exp(-dt/tau[j]) * stressV[j] + \
+                g[j]*stressH0*(1 - math.exp(-dt/tau[j])) + \
+                g[j]*dstressH/dt*(dt-tau[j]+tau[j]*math.exp(-dt/tau[j]))
             stress[i] = stress[i] - stressV[j]
         stressH0 = stressH1
     return stress
 
 N = 100
-time = linspace(0, 2, 2*N)
-strain = concatenate((linspace(0,0.5,N), linspace(0.5,0,N)))
+time = np.linspace(0, 2, 2*N)
+strain = np.concatenate((np.linspace(0,0.5,N), np.linspace(0.5,0,N)))
 
 params = [1.0, 0.8, 0.1] # [mu, g, tau]
 stress = LVE_uniax(time, strain, params)
 
-plot(strain, stress, 'b.-', label='LVE')
-show()
+plt.plot(strain, stress, 'b.-', label='LVE')
+plt.grid()
+plt.show()
